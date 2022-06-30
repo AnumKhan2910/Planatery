@@ -1,8 +1,11 @@
 package com.adyen.android.assignment.api.model
 
 import com.squareup.moshi.Json
+import com.squareup.moshi.JsonClass
+import java.io.Serializable
 import java.time.LocalDate
 
+@JsonClass(generateAdapter = true)
 data class AstronomyPicture(
     @Json(name = "service_version")
     val serviceVersion: String,
@@ -14,4 +17,4 @@ data class AstronomyPicture(
     @Json(name = "hdurl")
     val hdUrl: String?,
     val url: String,
-)
+): Serializable

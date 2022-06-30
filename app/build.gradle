@@ -27,6 +27,9 @@ android {
 
         buildConfigField "String", "NASA_BASE_URL", "\"https://api.nasa.gov\""
     }
+    buildFeatures{
+        dataBinding = true
+    }
     buildTypes {
         release {
             minifyEnabled false

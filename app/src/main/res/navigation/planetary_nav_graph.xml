@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/planetary_nav_graph"
+    app:startDestination="@id/APODListFragment">
+
+    <fragment
+        android:id="@+id/APODListFragment"
+        android:name="com.adyen.android.assignment.ui.APODListFragment"
+        android:label="APODListFragment" >
+        <action
+            android:id="@+id/action_APODListFragment_to_APODPreviewFragment"
+            app:destination="@id/APODPreviewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/APODPreviewFragment"
+        android:name="com.adyen.android.assignment.ui.APODPreviewFragment"
+        android:label="APODPreviewFragment" >
+        <argument
+            android:name="pictureData"
+            app:argType="com.adyen.android.assignment.api.model.AstronomyPicture" />
+    </fragment>
+</navigation>
