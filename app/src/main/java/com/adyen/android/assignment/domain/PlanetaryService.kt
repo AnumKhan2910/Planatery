@@ -1,4 +1,4 @@
-package com.adyen.android.assignment.api
+package com.adyen.android.assignment.domain
 
 import com.adyen.android.assignment.BuildConfig
 import com.adyen.android.assignment.api.model.AstronomyPicture
@@ -17,23 +17,5 @@ interface PlanetaryService {
      * See [the docs](https://api.nasa.gov/) and [github micro service](https://github.com/nasa/apod-api#docs-)
      */
     @GET("planetary/apod?count=20&api_key=${BuildConfig.API_KEY}")
-    suspend fun getPictures(): Response<List<AstronomyPicture>>
-
-    companion object {
-
-        private val moshi: Moshi = Moshi
-            .Builder()
-            .add(DayAdapter())
-            .add(KotlinJsonAdapterFactory())
-            .build()
-
-        private val retrofit by lazy {
-            Retrofit.Builder()
-                .baseUrl(BuildConfig.NASA_BASE_URL)
-                .addConverterFactory(MoshiConverterFactory.create(moshi))
-                .build()
-        }
-
-        val instance: PlanetaryService by lazy { retrofit.create(PlanetaryService::class.java) }
-    }
+    suspend fun getPictures(): List<AstronomyPicture>
 }
