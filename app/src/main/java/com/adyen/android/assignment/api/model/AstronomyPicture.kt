@@ -16,5 +16,5 @@ data class AstronomyPicture(
     val mediaType: String,
     @Json(name = "hdurl")
     val hdUrl: String?,
-    val url: String,
+    val url: String?,
 ): Serializable

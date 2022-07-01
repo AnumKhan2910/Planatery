@@ -21,6 +21,10 @@ class APODListViewModel @Inject constructor(
     val apodList: LiveData<List<AstronomyPicture>>
         get() = _apodList
 
+    private val _showProgress = MutableLiveData(false)
+    val showProgress: LiveData<Boolean>
+        get() = _showProgress
+
     private val _sortByDateSelected = MutableLiveData(false)
     val sortByDateSelected: LiveData<Boolean>
         get() = _sortByDateSelected
@@ -40,10 +44,18 @@ class APODListViewModel @Inject constructor(
     private fun fetchData() {
         viewModelScope.launch {
             getAPODUseCase(Unit).collectLatest {
-                if (it is PlanetaryDataUIState.Success) {
-                    _apodList.value = it.data as List<AstronomyPicture>
-                } else if (it is PlanetaryDataUIState.Failure) {
-                    toastManager.show(it.message)
+                when(it) {
+                    is PlanetaryDataUIState.Loading -> {
+                        _showProgress.value = true
+                    }
+                    is PlanetaryDataUIState.Failure -> {
+                        _showProgress.value = false
+                        toastManager.show(it.message)
+                    }
+                    is PlanetaryDataUIState.Success -> {
+                        _showProgress.value = false
+                        _apodList.value = it.data as List<AstronomyPicture>
+                    }
                 }
             }
         }

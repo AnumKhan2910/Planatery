@@ -47,14 +47,16 @@
 
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/title"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="@{data.title}"
                 android:textStyle="bold"
                 tool:text="Dummy text"
                 android:textSize="@dimen/text_size_large"
+                app:layout_constraintEnd_toEndOf="parent"
                 android:layout_marginBottom="@dimen/margin_8dp"
                 android:layout_marginStart="@dimen/margin_8dp"
+                android:layout_marginEnd="@dimen/margin_8dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"/>
 

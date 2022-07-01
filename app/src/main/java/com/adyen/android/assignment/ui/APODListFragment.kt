@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.*
 import androidx.navigation.Navigation
 import com.adyen.android.assignment.R
+import com.adyen.android.assignment.api.model.AstronomyPicture
 import com.adyen.android.assignment.databinding.FragmentApodListBinding
 import com.adyen.android.assignment.utils.StringResourceManager
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,7 +29,9 @@ class APODListFragment: Fragment() {
         return FragmentApodListBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listViewModel
-            adapter = APODDataAdapter {  }
+            adapter = APODDataAdapter {
+                navigateToPreviewScreen(it)
+            }
         }.root
     }
 
@@ -54,6 +57,16 @@ class APODListFragment: Fragment() {
                 .navigate(
                     APODListFragmentDirections
                         .actionAPODListFragmentToSortOptionsBottomSheetFragment()
+                )
+        }
+    }
+
+    private fun navigateToPreviewScreen(data: AstronomyPicture) {
+        view?.let {
+            Navigation.findNavController(it)
+                .navigate(
+                    APODListFragmentDirections
+                        .actionAPODListFragmentToAPODPreviewFragment(data)
                 )
         }
     }
