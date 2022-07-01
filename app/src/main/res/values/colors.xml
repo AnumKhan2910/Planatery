@@ -4,4 +4,6 @@
     <color name="background">#1C1B1F</color>
     <color name="on_background">#29272E</color>
     <color name="textColor">#FFFFFF</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="lightGray">#EDEDED</color>
 </resources>

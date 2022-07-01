@@ -11,7 +11,7 @@ data class AstronomyPicture(
     val serviceVersion: String,
     val title: String,
     val explanation: String,
-    val date: LocalDate,
+    val date: String,
     @Json(name = "media_type")
     val mediaType: String,
     @Json(name = "hdurl")
