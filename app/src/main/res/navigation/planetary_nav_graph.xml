@@ -11,6 +11,9 @@
         <action
             android:id="@+id/action_APODListFragment_to_APODPreviewFragment"
             app:destination="@id/APODPreviewFragment" />
+        <action
+            android:id="@+id/action_APODListFragment_to_sortOptionsBottomSheetFragment"
+            app:destination="@id/sortOptionsBottomSheetFragment" />
     </fragment>
     <fragment
         android:id="@+id/APODPreviewFragment"
@@ -20,4 +23,8 @@
             android:name="pictureData"
             app:argType="com.adyen.android.assignment.api.model.AstronomyPicture" />
     </fragment>
+    <dialog
+        android:id="@+id/sortOptionsBottomSheetFragment"
+        android:name="com.adyen.android.assignment.ui.SortOptionsBottomSheetFragment"
+        android:label="SortOptionsBottomSheetFragment" />
 </navigation>

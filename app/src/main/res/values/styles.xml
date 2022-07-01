@@ -1,7 +1,7 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="Theme.AppTheme" parent="Theme.Material3.Dark.NoActionBar">
+    <style name="Theme.AppTheme" parent="Theme.Material3.Dark">
         <!-- Colors -->
         <item name="colorPrimary">@color/primary</item>
         <item name="android:statusBarColor">@color/background</item>

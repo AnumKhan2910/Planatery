@@ -1,4 +1,8 @@
 <resources>
     <string name="app_name">Android Assignment</string>
     <string name="unexpected_error">Unexpected Error</string>
+    <string name="sort_by">Order by</string>
+    <string name="order_by_date">Order by date - descending</string>
+    <string name="order_by_title">Order by title - ascending</string>
+    <string name="astronomical_pictures">Astronomical Pictures</string>
 </resources>
