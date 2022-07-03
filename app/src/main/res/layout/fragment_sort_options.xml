@@ -13,70 +13,86 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bg_round"
         android:layout_margin="@dimen/margin_16dp"
+        android:background="@color/on_background"
         xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <androidx.appcompat.widget.AppCompatTextView
         android:id="@+id/title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_margin="@dimen/margin_16dp"
-        android:text="@string/sort_by"
+        android:text="@string/reorder_list"
         android:textSize="@dimen/text_size_large"
         />
 
-    <androidx.appcompat.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatRadioButton
         android:id="@+id/orderByTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toStartOf="@id/selectTitle"
         app:layout_constraintTop_toBottomOf="@id/title"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_margin="@dimen/margin_16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:checked="@{viewModel.sortByTitleSelected}"
+        android:button="@null"
+        android:drawableEnd="@drawable/btn_radio"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
         android:onClick="@{() -> viewModel.sortByTitle()}"
         android:text="@string/order_by_title"
         android:textSize="@dimen/text_size_medium"
         />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/selectTitle"
-        android:layout_width="@dimen/margin_20dp"
-        android:layout_height="@dimen/margin_20dp"
-        android:src="@drawable/ic_check"
-        toggle_visibility="@{viewModel.sortByTitleSelected}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/title"
-        android:layout_margin="@dimen/margin_16dp"/>
-
-    <androidx.appcompat.widget.AppCompatTextView
+    <androidx.appcompat.widget.AppCompatRadioButton
         android:id="@+id/orderByDate"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:checked="@{viewModel.sortByDateSelected}"
         app:layout_constrainedWidth="true"
-        app:layout_constraintEnd_toStartOf="@id/selectDate"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/orderByTitle"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:button="@null"
+        android:drawableEnd="@drawable/btn_radio"
         android:onClick="@{() -> viewModel.sortByDate()}"
-        android:layout_margin="@dimen/margin_16dp"
+        android:layout_marginStart="@dimen/margin_16dp"
+        android:layout_marginEnd="@dimen/margin_16dp"
         android:text="@string/order_by_date"
         android:textSize="@dimen/text_size_medium"
         />
 
-    <androidx.appcompat.widget.AppCompatImageView
-        android:id="@+id/selectDate"
-        android:layout_width="@dimen/margin_20dp"
-        android:layout_height="@dimen/margin_20dp"
-        android:src="@drawable/ic_check"
-        toggle_visibility="@{viewModel.sortByDateSelected}"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/orderByTitle"
-        android:layout_margin="@dimen/margin_16dp"/>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnApply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/orderByDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:gravity="center"
+            android:background="@drawable/bg_button"
+            android:text="@string/apply"
+            android:onClick="@{() -> viewModel.performOrdering()}"
+            android:padding="@dimen/margin_16dp"
+            android:layout_margin="@dimen/margin_16dp"
+            />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/btnReset"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/btnApply"
+            android:onClick="@{() -> viewModel.reset()}"
+            android:gravity="center"
+            android:text="@string/reset"
+            android:padding="@dimen/margin_16dp"
+            android:layout_margin="@dimen/margin_16dp"
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

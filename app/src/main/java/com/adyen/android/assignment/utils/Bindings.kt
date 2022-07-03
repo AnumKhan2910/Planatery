@@ -18,7 +18,6 @@ fun View.toggleVisibility(show: Boolean) {
     updateViewVisibility(show)
 }
 
-
 @BindingAdapter(value = ["load_image"])
 fun ImageView.loadImage(uri: String?) {
     uri?.let {
@@ -26,17 +25,7 @@ fun ImageView.loadImage(uri: String?) {
             .asBitmap()
             .load(it)
             .diskCacheStrategy(DiskCacheStrategy.ALL)
-            .placeholder(R.drawable.ic_placeholder)
-            .into(object : SimpleTarget<Bitmap>() {
-
-                override fun onResourceReady(resource: Bitmap, transition: Transition<in Bitmap>?) {
-                    val bitmap = Bitmap.createScaledBitmap(resource, 1000, 500, false)
-                    layoutParams.width = bitmap.width
-                    layoutParams.height = bitmap.height
-                    setLayoutParams(layoutParams)
-                    setImageBitmap(bitmap)
-                }
-            })
+            .into(this)
     }
 
 }

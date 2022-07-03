@@ -13,15 +13,25 @@ class APODPreviewFragment: Fragment() {
 
     private val args: APODPreviewFragmentArgs by navArgs()
 
+    private lateinit var binding: FragmentApodPreviewBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         setHasOptionsMenu(true)
-        return FragmentApodPreviewBinding.inflate(inflater, container, false).apply {
+        binding = FragmentApodPreviewBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             data = args.pictureData
-        }.root
+        }
+        return binding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        binding.back.setOnClickListener {
+            requireActivity().onBackPressed()
+        }
     }
 }

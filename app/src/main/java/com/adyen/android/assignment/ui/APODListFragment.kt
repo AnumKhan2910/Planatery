@@ -20,35 +20,26 @@ class APODListFragment: Fragment() {
     @Inject
     lateinit var stringResourceManager: StringResourceManager
 
+    private lateinit var binding: FragmentApodListBinding
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        setHasOptionsMenu(true)
-        return FragmentApodListBinding.inflate(inflater, container, false).apply {
+        binding = FragmentApodListBinding.inflate(inflater, container, false).apply {
             lifecycleOwner = viewLifecycleOwner
             viewModel = listViewModel
             adapter = APODDataAdapter {
                 navigateToPreviewScreen(it)
             }
-        }.root
+        }
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (requireActivity() as AppCompatActivity).supportActionBar?.title = stringResourceManager.getString(R.string.astronomical_pictures)
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.more_menu, menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.sortBy) {
-            showSortFragment()
-        }
-        return true
+        binding.btnReorder.setOnClickListener { showSortFragment() }
     }
 
     private fun showSortFragment() {

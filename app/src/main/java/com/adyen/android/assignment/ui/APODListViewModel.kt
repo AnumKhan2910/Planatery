@@ -61,11 +61,25 @@ class APODListViewModel @Inject constructor(
         }
     }
 
+    fun performOrdering() {
+        if (sortByDateSelected.value == true) {
+            performDateSorting()
+        } else if (sortByTitleSelected.value == true) {
+            performTitleSorting()
+        }
+        dismissDialog()
+    }
+
+    fun reset() {
+        _sortByDateSelected.value = false
+        _sortByTitleSelected.value = false
+        fetchData()
+        dismissDialog()
+    }
+
     fun sortByDate() {
         _sortByDateSelected.value = true
         _sortByTitleSelected.value = false
-        dismissDialog()
-        performDateSorting()
     }
 
     private fun performDateSorting() {
@@ -77,8 +91,6 @@ class APODListViewModel @Inject constructor(
     fun sortByTitle() {
         _sortByDateSelected.value = false
         _sortByTitleSelected.value = true
-        dismissDialog()
-        performTitleSorting()
     }
 
     private fun performTitleSorting() {

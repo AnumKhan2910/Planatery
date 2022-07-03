@@ -10,58 +10,57 @@
 
     </data>
 
-    <androidx.cardview.widget.CardView
+    <androidx.constraintlayout.widget.ConstraintLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_marginBottom="@dimen/margin_8dp"
-        app:cardCornerRadius="@dimen/margin_8dp"
-        android:layout_height="wrap_content"
-        android:layout_width="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+        <androidx.cardview.widget.CardView
+            android:id="@+id/image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="@dimen/margin_25dp"
+            android:layout_margin="@dimen/margin_16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
 
             <androidx.appcompat.widget.AppCompatImageView
-                android:layout_width="match_parent"
-                android:layout_height="200dp"
-                android:background="@drawable/bg_round"
-                load_image="@{data.hdUrl}"
-                app:layout_constrainedWidth="true"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                app:layout_constraintBottom_toTopOf="@id/date"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:layout_width="@dimen/margin_50dp"
+                android:layout_height="@dimen/margin_50dp"
+                android:scaleType="fitXY"
+                load_image="@{data.hdUrl}"/>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/date"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@{data.date}"
-                tool:text="20-03-2022"
-                android:textSize="@dimen/text_size_large"
-                android:layout_marginBottom="@dimen/margin_2dp"
-                android:layout_marginStart="@dimen/margin_8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toTopOf="@id/title"/>
+        </androidx.cardview.widget.CardView>
 
-            <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/title"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@{data.title}"
-                android:textStyle="bold"
-                tool:text="Dummy text"
-                android:textSize="@dimen/text_size_large"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_marginBottom="@dimen/margin_8dp"
-                android:layout_marginStart="@dimen/margin_8dp"
-                android:layout_marginEnd="@dimen/margin_8dp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data.date}"
+            tool:text="20-03-2022"
+            android:textSize="@dimen/text_size_medium"
+            android:layout_marginBottom="@dimen/margin_2dp"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginTop="@dimen/margin_2dp"
+            app:layout_constraintStart_toEndOf="@id/image"
+            app:layout_constraintTop_toBottomOf="@id/title"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@{data.title}"
+            android:textStyle="bold"
+            tool:text="Dummy text"
+            android:textSize="@dimen/text_size_medium"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginTop="@dimen/margin_16dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginBottom="@dimen/margin_8dp"
+            android:layout_marginStart="@dimen/margin_8dp"
+            android:layout_marginEnd="@dimen/margin_8dp"
+            app:layout_constrainedWidth="true"
+            app:layout_constraintStart_toEndOf="@id/image"/>
 
-    </androidx.cardview.widget.CardView>
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
