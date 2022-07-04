@@ -2,7 +2,6 @@ package com.adyen.android.assignment.ui
 
 import android.os.Bundle
 import android.view.*
-import android.widget.LinearLayout
 import androidx.constraintlayout.widget.Constraints
 import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.activityViewModels

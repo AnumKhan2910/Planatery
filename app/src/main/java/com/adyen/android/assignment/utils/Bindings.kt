@@ -23,7 +23,6 @@ fun ImageView.loadImage(uri: String?) {
             .diskCacheStrategy(DiskCacheStrategy.ALL)
             .into(this)
     }
-
 }
 
 @BindingAdapter("adapter")

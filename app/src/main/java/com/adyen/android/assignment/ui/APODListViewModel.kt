@@ -107,6 +107,11 @@ class APODListViewModel @Inject constructor(
         _sortByTitleSelected.value = false
     }
 
+    fun sortByTitle() {
+        _sortByDateSelected.value = false
+        _sortByTitleSelected.value = true
+    }
+
     private fun resetList() {
         val list = mutableListOf<AstronomyPicture>()
         favouritesData?.let {
@@ -135,11 +140,6 @@ class APODListViewModel @Inject constructor(
             })
         }
         _apodList.value = list
-    }
-
-    fun sortByTitle() {
-        _sortByDateSelected.value = false
-        _sortByTitleSelected.value = true
     }
 
     private fun performTitleSorting() {
