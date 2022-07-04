@@ -24,5 +24,4 @@ class ErrorFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         binding.btnRefresh.setOnClickListener { requireActivity().onBackPressed() }
     }
-
 }

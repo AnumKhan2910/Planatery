@@ -31,6 +31,5 @@ abstract class RoomDB : RoomDatabase() {
                 context.applicationContext,
                 RoomDB::class.java, DB_NAME
             ).build()
-
     }
 }

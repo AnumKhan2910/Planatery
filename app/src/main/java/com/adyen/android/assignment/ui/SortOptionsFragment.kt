@@ -45,5 +45,4 @@ class SortOptionsFragment: DialogFragment() {
             }
         )
     }
-
 }

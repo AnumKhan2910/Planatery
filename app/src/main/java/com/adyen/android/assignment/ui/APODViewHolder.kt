@@ -11,7 +11,6 @@ sealed class APODViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) 
     abstract fun bind(item: AstronomyPicture)
 
     class TitleViewHolder(val binding: ItemTitleBinding) : APODViewHolder(binding.root) {
-
         override fun bind(item: AstronomyPicture) {
             binding.data = item
         }

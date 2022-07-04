@@ -9,7 +9,6 @@ import java.io.Serializable
 @JsonClass(generateAdapter = true)
 @Entity(tableName = "astronomyPictures")
 data class AstronomyPicture(
-
     @NonNull
     @ColumnInfo(name = "title")
     val title: String = "",
