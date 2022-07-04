@@ -15,5 +15,5 @@
     <dimen name="text_size_large">20sp</dimen>
     <dimen name="text_very_size_large">32sp</dimen>
 
-    <dimen name="height_500dp">500.00dp</dimen>
+    <dimen name="height_300dp">300.00dp</dimen>
 </resources>

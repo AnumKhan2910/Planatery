@@ -23,7 +23,7 @@
         <androidx.constraintlayout.utils.widget.ImageFilterView
             android:id="@+id/image"
             android:layout_width="match_parent"
-            android:layout_height="300dp"
+            android:layout_height="@dimen/height_300dp"
             load_image="@{viewModel.astronomyPicture.hdUrl}"
             android:scaleType="fitXY"
             app:layout_constraintTop_toTopOf="parent"
