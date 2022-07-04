@@ -58,7 +58,6 @@ class APODDataAdapter constructor(
         }
     }
 
-
     /*
      Using diff util for efficient views update
      */

@@ -25,7 +25,6 @@ class NetworkErrorFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.btnOpenNetwork.setOnClickListener { openNetworkSettings() }
-
     }
 
     private fun openNetworkSettings() {

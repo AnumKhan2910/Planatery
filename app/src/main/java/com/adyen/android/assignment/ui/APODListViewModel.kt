@@ -177,10 +177,7 @@ class APODListViewModel @Inject constructor(
     )
 
     private fun dismissDialog() {
-        viewModelScope.launch {
-            delay(100)
-            _actionDismissDialog.value = true
-        }
+        _actionDismissDialog.value = true
     }
 
     fun resetDismissValue() {
