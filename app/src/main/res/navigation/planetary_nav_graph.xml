@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/planetary_nav_graph"
+    app:startDestination="@id/APODListFragment">
+
+    <fragment
+        android:id="@+id/APODListFragment"
+        android:name="com.adyen.android.assignment.ui.APODListFragment"
+        android:label="APODListFragment" >
+        <action
+            android:id="@+id/action_APODListFragment_to_APODPreviewFragment"
+            app:destination="@id/APODPreviewFragment" />
+        <action
+            android:id="@+id/action_APODListFragment_to_sortOptionsBottomSheetFragment"
+            app:destination="@id/sortOptionsFragment" />
+        <action
+            android:id="@+id/action_APODListFragment_to_networkErrorFragment"
+            app:destination="@id/networkErrorFragment" />
+        <action
+            android:id="@+id/action_APODListFragment_to_errorFragment"
+            app:destination="@id/errorFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/APODPreviewFragment"
+        android:name="com.adyen.android.assignment.ui.APODPreviewFragment"
+        android:label="APODPreviewFragment" >
+        <argument
+            android:name="pictureData"
+            app:argType="com.adyen.android.assignment.data.network.AstronomyPicture" />
+    </fragment>
+
+    <dialog
+        android:id="@+id/sortOptionsFragment"
+        android:name="com.adyen.android.assignment.ui.SortOptionsFragment" />
+
+    <fragment
+        android:id="@+id/networkErrorFragment"
+        android:name="com.adyen.android.assignment.ui.NetworkErrorFragment"
+        android:label="NetworkErrorFragment" />
+
+    <fragment
+        android:id="@+id/errorFragment"
+        android:name="com.adyen.android.assignment.ui.ErrorFragment"
+        android:label="ErrorFragment" />
+
+
+</navigation>

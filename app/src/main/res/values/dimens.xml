@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="margin_2dp">2.00dp</dimen>
+    <dimen name="margin_4dp">4.00dp</dimen>
+    <dimen name="margin_8dp">8.00dp</dimen>
+    <dimen name="margin_12dp">12.00dp</dimen>
+    <dimen name="margin_16dp">16.00dp</dimen>
+    <dimen name="margin_20dp">20.00dp</dimen>
+    <dimen name="margin_25dp">25.00dp</dimen>
+    <dimen name="margin_50dp">50.00dp</dimen>
+    <dimen name="margin_60dp">60.00dp</dimen>
+
+    <dimen name="text_size_medium">16sp</dimen>
+    <dimen name="text_size_large">20sp</dimen>
+    <dimen name="text_very_size_large">32sp</dimen>
+
+    <dimen name="height_300dp">300.00dp</dimen>
+</resources>
