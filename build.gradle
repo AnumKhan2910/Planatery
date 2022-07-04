@@ -19,6 +19,7 @@ buildscript {
         core_testing_version = '2.1.0'
         mockito_core_version = '3.7.7'
         mockito_inline_version = '3.0.0'
+        room_version = "2.4.0"
     }
 
     repositories {

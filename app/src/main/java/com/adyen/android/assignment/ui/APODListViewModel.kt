@@ -1,9 +1,12 @@
 package com.adyen.android.assignment.ui
 
 import androidx.lifecycle.*
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.R
+import com.adyen.android.assignment.data.local.AstronomyPictureDao
+import com.adyen.android.assignment.data.network.AstronomyPicture
 import com.adyen.android.assignment.domain.GetAPODUseCase
 import com.adyen.android.assignment.network.PlanetaryDataUIState
+import com.adyen.android.assignment.utils.StringResourceManager
 import com.adyen.android.assignment.utils.ToastManager
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
@@ -14,12 +17,18 @@ import javax.inject.Inject
 @HiltViewModel
 class APODListViewModel @Inject constructor(
     private val getAPODUseCase: GetAPODUseCase,
-    private val toastManager: ToastManager
+    private val stringResourceManager: StringResourceManager,
+    private val toastManager: ToastManager,
+    private val astronomyPictureDao: AstronomyPictureDao
 ): ViewModel() {
 
     private val _apodList = MutableLiveData<List<AstronomyPicture>>()
     val apodList: LiveData<List<AstronomyPicture>>
         get() = _apodList
+
+    private val _showErrorScreen = MutableLiveData(false)
+    val showErrorScreen: LiveData<Boolean>
+        get() = _showErrorScreen
 
     private val _showProgress = MutableLiveData(false)
     val showProgress: LiveData<Boolean>
@@ -37,27 +46,43 @@ class APODListViewModel @Inject constructor(
     val actionDismissDialog: LiveData<Boolean>
         get() = _actionDismissDialog
 
-    init {
-        fetchData()
+    private var latestData: List<AstronomyPicture>? = null
+    private var favouritesData: List<AstronomyPicture>? = null
+
+    fun fetchData() {
+        if (latestData == null) {
+            viewModelScope.launch {
+                fetchLatestData()
+                fetchFavouritesData()
+            }
+        }
     }
 
-    private fun fetchData() {
-        viewModelScope.launch {
-            getAPODUseCase(Unit).collectLatest {
-                when(it) {
-                    is PlanetaryDataUIState.Loading -> {
-                        _showProgress.value = true
-                    }
-                    is PlanetaryDataUIState.Failure -> {
-                        _showProgress.value = false
-                        toastManager.show(it.message)
-                    }
-                    is PlanetaryDataUIState.Success -> {
-                        _showProgress.value = false
-                        _apodList.value = it.data as List<AstronomyPicture>
-                    }
+    private suspend fun fetchLatestData() {
+        getAPODUseCase(Unit).collectLatest {
+            when(it) {
+                is PlanetaryDataUIState.Loading -> {
+                    _showProgress.value = true
+                }
+                is PlanetaryDataUIState.Failure -> {
+                    _showProgress.value = false
+                    _showErrorScreen.value = true
+                    toastManager.show(it.message)
+                }
+                is PlanetaryDataUIState.Success -> {
+                    _showProgress.value = false
+                    latestData = it.data
+                    setLatestData(it.data)
                 }
             }
+        }
+    }
+
+
+    private suspend fun fetchFavouritesData() {
+        astronomyPictureDao.getAllData().collectLatest {
+            favouritesData = it
+            setFavouritesData(it)
         }
     }
 
@@ -73,7 +98,7 @@ class APODListViewModel @Inject constructor(
     fun reset() {
         _sortByDateSelected.value = false
         _sortByTitleSelected.value = false
-        fetchData()
+        resetList()
         dismissDialog()
     }
 
@@ -82,10 +107,34 @@ class APODListViewModel @Inject constructor(
         _sortByTitleSelected.value = false
     }
 
-    private fun performDateSorting() {
-        _apodList.value = apodList.value?.sortedByDescending {
-            it.date
+    private fun resetList() {
+        val list = mutableListOf<AstronomyPicture>()
+        favouritesData?.let {
+            list.add(getFavouritesHeader())
+            list.addAll(it)
         }
+        latestData?.let {
+            list.add(getLatestHeader())
+            list.addAll(it)
+        }
+        _apodList.value = list
+    }
+
+    private fun performDateSorting() {
+        val list = mutableListOf<AstronomyPicture>()
+        favouritesData?.let {
+            list.add(getFavouritesHeader())
+            list.addAll(it.sortedByDescending {
+                it.date
+            })
+        }
+        latestData?.let {
+            list.add(getLatestHeader())
+            list.addAll(it.sortedByDescending {
+                it.date
+            })
+        }
+        _apodList.value = list
     }
 
     fun sortByTitle() {
@@ -94,9 +143,20 @@ class APODListViewModel @Inject constructor(
     }
 
     private fun performTitleSorting() {
-        _apodList.value = apodList.value?.sortedBy {
-            it.title
+        val list = mutableListOf<AstronomyPicture>()
+        favouritesData?.let {
+            list.add(getFavouritesHeader())
+            list.addAll(it.sortedBy {
+                it.title
+            })
         }
+        latestData?.let {
+            list.add(getLatestHeader())
+            list.addAll(it.sortedBy {
+                it.title
+            })
+        }
+        _apodList.value = list
     }
 
     private fun dismissDialog() {
@@ -109,4 +169,42 @@ class APODListViewModel @Inject constructor(
     fun resetDismissValue() {
         _actionDismissDialog.value = false
     }
+
+    fun resetErrorValue() {
+        _showErrorScreen.value = false
+    }
+
+    private fun setLatestData(data: List<AstronomyPicture>) {
+        val list = mutableListOf<AstronomyPicture>()
+        favouritesData?.let {
+            list.add(getFavouritesHeader())
+            list.addAll(it)
+        }
+        list.add(getLatestHeader())
+        list.addAll(data)
+        _apodList.value = list
+    }
+
+    private fun setFavouritesData(data: List<AstronomyPicture>) {
+        val list = mutableListOf<AstronomyPicture>()
+        if (data.isNotEmpty()) {
+            list.add(getFavouritesHeader())
+            list.addAll(data)
+        }
+        latestData?.let {
+            list.add(getLatestHeader())
+            list.addAll(it)
+        }
+        _apodList.value = list
+    }
+
+    private fun getLatestHeader() = AstronomyPicture(
+        isTitle = true,
+        title = stringResourceManager.getString(R.string.latest)
+    )
+
+    private fun getFavouritesHeader() = AstronomyPicture(
+        isTitle = true,
+        title = stringResourceManager.getString(R.string.favourites)
+    )
 }

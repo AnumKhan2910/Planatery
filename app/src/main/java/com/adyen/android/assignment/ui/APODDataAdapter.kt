@@ -3,45 +3,58 @@ package com.adyen.android.assignment.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.*
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.network.AstronomyPicture
 import com.adyen.android.assignment.databinding.ItemApodBinding
+import com.adyen.android.assignment.databinding.ItemTitleBinding
 
 class APODDataAdapter constructor(
     private var itemClickListener: (AstronomyPicture) -> Unit
 ) :  ListAdapter<AstronomyPicture, RecyclerView.ViewHolder>(DiffCallBack()) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): GiphyViewHolder {
-        val binding = ItemApodBinding.inflate (
-            LayoutInflater.from(parent.context),
-            parent,
-            false
-        )
-        return GiphyViewHolder(binding, itemClickListener)
+    companion object {
+        private const val TYPE_ITEM = 1
+        private const val TYPE_TITLE = 2
+    }
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): APODViewHolder {
+        val layoutInflater = LayoutInflater.from(parent.context)
+        return when (viewType) {
+            TYPE_TITLE -> APODViewHolder.TitleViewHolder(
+                ItemTitleBinding.inflate (
+                    layoutInflater,
+                    parent,
+                    false
+                )
+            )
+            else -> APODViewHolder.DataViewHolder(
+                ItemApodBinding.inflate (
+                    layoutInflater,
+                    parent,
+                    false
+                )
+            )
+        }
     }
 
     override fun getItemCount(): Int {
         return currentList.size
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        if (holder is GiphyViewHolder) {
-            holder.onBind(currentList[position])
-        }
+    override fun getItemViewType(position: Int): Int {
+       return if (currentList[position].isTitle) {
+           TYPE_TITLE
+        } else {
+            TYPE_ITEM
+       }
     }
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        if (holder is APODViewHolder) {
+            holder.bind(currentList[position])
+        }
 
-    class GiphyViewHolder constructor(
-        private val binding: ItemApodBinding,
-        var itemClickListener: (AstronomyPicture) -> Unit):
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun onBind(item : AstronomyPicture) {
-            binding.run {
-                data = item
-                root.setOnClickListener {
-                    itemClickListener(item)
-                }
-            }
+        if (currentList[position].isTitle.not()) {
+            holder.itemView.setOnClickListener { itemClickListener(currentList[position])}
         }
     }
 

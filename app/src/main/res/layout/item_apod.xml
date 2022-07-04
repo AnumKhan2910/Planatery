@@ -6,7 +6,7 @@
 
         <variable
             name="data"
-            type="com.adyen.android.assignment.api.model.AstronomyPicture" />
+            type="com.adyen.android.assignment.data.network.AstronomyPicture" />
 
     </data>
 

@@ -1,17 +1,13 @@
 package com.adyen.android.assignment.utils
 
-import android.graphics.Bitmap
 import android.view.View
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.adyen.android.assignment.R
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.network.AstronomyPicture
 import com.adyen.android.assignment.ui.APODDataAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.target.SimpleTarget
-import com.bumptech.glide.request.transition.Transition
 
 @BindingAdapter(value = ["toggle_visibility"])
 fun View.toggleVisibility(show: Boolean) {

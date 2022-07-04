@@ -1,7 +1,7 @@
 package com.adyen.android.assignment.domain
 
 import com.adyen.android.assignment.R
-import com.adyen.android.assignment.api.model.AstronomyPicture
+import com.adyen.android.assignment.data.network.AstronomyPicture
 import com.adyen.android.assignment.network.PlanetaryDataUIState
 import com.adyen.android.assignment.network.ResponseResult
 import com.adyen.android.assignment.utils.FlowUseCase
