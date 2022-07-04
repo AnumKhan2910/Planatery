@@ -124,14 +124,14 @@ class APODListViewModel @Inject constructor(
         val list = mutableListOf<AstronomyPicture>()
         favouritesData?.let {
             list.add(getFavouritesHeader())
-            list.addAll(it.sortedByDescending {
-                it.date
+            list.addAll(it.sortedByDescending { data ->
+                data.date
             })
         }
         latestData?.let {
             list.add(getLatestHeader())
-            list.addAll(it.sortedByDescending {
-                it.date
+            list.addAll(it.sortedByDescending { data ->
+                data.date
             })
         }
         _apodList.value = list
@@ -146,14 +146,14 @@ class APODListViewModel @Inject constructor(
         val list = mutableListOf<AstronomyPicture>()
         favouritesData?.let {
             list.add(getFavouritesHeader())
-            list.addAll(it.sortedBy {
-                it.title
+            list.addAll(it.sortedBy { data ->
+                data.title
             })
         }
         latestData?.let {
             list.add(getLatestHeader())
-            list.addAll(it.sortedBy {
-                it.title
+            list.addAll(it.sortedBy { data ->
+                data.title
             })
         }
         _apodList.value = list
